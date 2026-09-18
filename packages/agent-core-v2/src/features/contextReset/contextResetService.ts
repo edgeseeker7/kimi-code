@@ -43,6 +43,7 @@ export class ContextResetService extends Service implements IContextResetService
         const message: ContextMessage = {
           role: 'user',
           content: [{ type: 'text', text: checkpoint }],
+          toolCalls: [],
           origin: { kind: 'injection', variant: 'reset-checkpoint' },
         };
         this.contextMemory.append(message);

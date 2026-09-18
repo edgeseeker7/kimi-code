@@ -31,7 +31,7 @@ interface NoteEntry {
 }
 
 function cmRoot(): string {
-  return join(process.env.KIMI_CODE_HOME ?? join(homedir(), '.kimi-code'), 'context-manager');
+  return join(process.env['KIMI_CODE_HOME'] ?? join(homedir(), '.kimi-code'), 'context-manager');
 }
 
 function readCurrentPointer(): CurrentPointer | null {
