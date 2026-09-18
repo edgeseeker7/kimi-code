@@ -30,6 +30,7 @@ import { handleCopyCommand } from './copy';
 import {
   handleAutoCommand,
   handleCompactCommand,
+  handleResetCommand,
   handleEditorCommand,
   handleEffortCommand,
   handleModelCommand,
@@ -582,6 +583,9 @@ async function handleBuiltInSlashCommand(
       return;
     case 'compact':
       await handleCompactCommand(host, args);
+      return;
+    case 'reset':
+      await handleResetCommand(host, args);
       return;
     case 'goal':
       await handleGoalCommand(host, args);

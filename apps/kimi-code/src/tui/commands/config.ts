@@ -228,6 +228,15 @@ export async function handleCompactCommand(host: SlashCommandHost, args: string)
   await session.compact({ instruction: customInstruction });
 }
 
+export async function handleResetCommand(host: SlashCommandHost, args: string): Promise<void> {
+  const session = host.session;
+  if (session === undefined) {
+    host.showError(NO_ACTIVE_SESSION_MESSAGE);
+    return;
+  }
+  await session.runCommand('reset', args.trim() || undefined);
+}
+
 export async function handleEditorCommand(host: SlashCommandHost, args: string): Promise<void> {
   const command = args.trim();
   if (command.length === 0) {

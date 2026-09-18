@@ -317,6 +317,12 @@ export const BUILTIN_SLASH_COMMANDS = [
     argumentHint: '<instruction>',
   },
   {
+    name: 'reset',
+    aliases: [],
+    description: 'Reset the context window onto a checkpoint (pins, notes, mechanical state, topic map)',
+    priority: 80,
+  },
+  {
     name: 'goal',
     aliases: [],
     description: 'Start or manage an autonomous goal',
