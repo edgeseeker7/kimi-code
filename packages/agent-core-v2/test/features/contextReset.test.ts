@@ -1,4 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import type { ContextMessage } from '#/agent/contextMemory/types';
 import type { WireRecord } from '#/wire/record';
@@ -26,6 +30,19 @@ describe('textTokens', () => {
 });
 
 describe('checkpoint', () => {
+  let savedHome: string | undefined;
+  let tempHome: string;
+  beforeEach(() => {
+    savedHome = process.env['KIMI_CODE_HOME'];
+    tempHome = mkdtempSync(join(tmpdir(), 'kcm-test-'));
+    process.env['KIMI_CODE_HOME'] = tempHome;
+  });
+  afterEach(() => {
+    if (savedHome === undefined) delete process.env['KIMI_CODE_HOME'];
+    else process.env['KIMI_CODE_HOME'] = savedHome;
+    rmSync(tempHome, { recursive: true, force: true });
+  });
+
   it('extracts text from append_message and loop events', () => {
     expect(
       wireRecordText(wireRecord({ type: 'context.append_message', message: { role: 'user', content: [{ type: 'text', text: '问' }] } })),
